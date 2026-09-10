@@ -11,6 +11,8 @@
   "dependencies": {
     "@statsig/js-client": "^3.32.0",
     "@statsig/react-bindings": "^3.32.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
     "chart.js": "^4.5.1",
     "framer-motion": "^11.2.14",
     "lucide-react": "^0.575.0",
@@ -21,8 +23,10 @@
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
+    "resend": "^6.27.0",
     "statsig-node": "^6.5.1",
-    "statsig-node-edge": "^0.1.0-beta.1"
+    "statsig-node-edge": "^0.1.0-beta.1",
+    "zod": "^4.6.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

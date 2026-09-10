@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, ExternalLink, FileText, Github } from "lucide-react";
 import { useState } from "react";
 import { portfolioProjects, Project, ProjectType } from "@/data/portfolio";
+import Link from "next/link";
 
 type Filter = "all" | ProjectType;
 
@@ -32,7 +33,7 @@ const cardVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-function ProjectLink({
+export function ProjectLink({
   href,
   label,
   children,
@@ -54,7 +55,7 @@ function ProjectLink({
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project }: { project: Project }) {
   return (
     <motion.article
       layout
@@ -117,11 +118,12 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-export const Portfolio = () => {
+export const Portfolio = ({ limit }: { limit?: number } = {}) => {
   const [activeFilter, setActiveFilter] = useState<Filter>("all");
-  const visibleProjects = portfolioProjects.filter(
+  const filteredProjects = portfolioProjects.filter(
     (project) => activeFilter === "all" || project.type === activeFilter,
   );
+  const visibleProjects = limit ? filteredProjects.slice(0, limit) : filteredProjects;
 
   return (
     <section id="portfolio" className="scroll-mt-32 bg-[#EAEEFE] py-24" aria-labelledby="portfolio-heading">
@@ -135,11 +137,16 @@ export const Portfolio = () => {
         >
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">Selected work</p>
           <h2 id="portfolio-heading" className="section-title text-3xl md:text-5xl">
-            Tools and research for more freedom and opportunity
+            Tools and research that create more room to move
           </h2>
           <p className="section-des mt-4">
-            Software that removes friction, research shared instead of kept proprietary, and projects built in the open.
+            Projects that reduce friction, make reasoning inspectable, and turn learning into more opportunity and leverage.
           </p>
+          {limit && (
+            <Link href="/projects" className="mt-5 inline-block font-semibold text-blue-600 hover:text-blue-800">
+              View all projects →
+            </Link>
+          )}
         </motion.div>
 
         <div className="mb-10 flex flex-wrap justify-center gap-2" role="group" aria-label="Filter portfolio">

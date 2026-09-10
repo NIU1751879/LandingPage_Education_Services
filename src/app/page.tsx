@@ -6,6 +6,7 @@ import SobreMi from "@/sections/AboutMe";
 import { Services } from "@/sections/Services";
 import { Portfolio } from "@/sections/Portfolio";
 import { TechStack } from "@/sections/TechStack";
+import { WritingPreview } from "@/sections/WritingPreview";
 
 export default function Home() {
   return (
@@ -14,7 +15,8 @@ export default function Home() {
       <Hero variant="portfolio" />
       <SobreMi compact />
       <Services />
-      <Portfolio />
+      <Portfolio limit={3} />
+      <WritingPreview />
       <TechStack />
       <CallToAction variant="simple" />
       <Footer />

@@ -19,7 +19,7 @@ export const portfolioProjects: Project[] = [
     title: "RealAutoSolution",
     type: "app",
     description:
-      "A multi-tenant incident-management SaaS that gives tenants a direct reporting channel and keeps SLA escalation moving.",
+      "A multi-tenant incident-management SaaS that gives tenants a direct reporting channel, making problems visible and helping teams act before friction compounds.",
     tags: ["Next.js 15", "React 19", "Supabase", "PostgreSQL RLS", "Multi-tenant SaaS"],
     image: "/images/RealState.png",
     demoUrl: "https://github.com/NIU1751879/RealStateSolution",
@@ -30,7 +30,7 @@ export const portfolioProjects: Project[] = [
     title: "Statistical Arbitrage & Mean Reversion Strategies",
     type: "paper",
     description:
-      "An open write-up on cointegration-driven pairs trading across equities, crypto, and FX, including Kalman-filtered hedge ratios and trading costs.",
+      "An open study of cointegration-driven pairs trading across equities, crypto, and FX, giving readers a transparent way to evaluate uncertainty, assumptions, and trading costs.",
     tags: ["Python", "statsmodels", "Kalman Filter", "Cointegration", "Quant Research"],
     image: "/images/residuals.jpg",
     paperUrl: "https://github.com/NIU1751879/Trading_Strategies/tree/main",
@@ -41,7 +41,7 @@ export const portfolioProjects: Project[] = [
     title: "Bootstrap Methods for Financial Risk Management",
     type: "paper",
     description:
-      "A comparison of parametric and percentile/BCa bootstrap VaR intervals on BTC-USD, showing how parametric VaR can understate tail risk.",
+      "A comparison of bootstrap VaR intervals on BTC-USD that makes hidden tail-risk uncertainty visible and supports more cautious financial decisions.",
     tags: ["Python", "Bootstrap Resampling", "Value-at-Risk", "Hypothesis Testing"],
     image: "/images/Bootstrap.png",
     paperUrl: "https://github.com/NIU1751879/QuantbootstrapVAR",
@@ -52,7 +52,7 @@ export const portfolioProjects: Project[] = [
     title: "Numerical Methods for Real Options Valuation",
     type: "paper",
     description:
-      "A benchmark of Euler, Heun, RK2, and RK4 ODE solvers against a closed-form real-options solution.",
+      "A benchmark of numerical solvers against a closed-form real-options solution, helping decision-makers understand how modelling choices affect choices under uncertainty.",
     tags: ["Python", "Numerical ODE Solvers", "Options Pricing"],
     image: "/images/RO_NUM.png",
     paperUrl: "https://github.com/NIU1751879/NUM_METHODS_RealOptions",
@@ -63,10 +63,9 @@ export const portfolioProjects: Project[] = [
     title: "E-Commerce Automated Image Categorization Engine",
     type: "project",
     description:
-      "A KNN and K-Means pipeline for clothing shape and colour tagging, where ROI isolation improved accuracy from 37.9% to 53.7%.",
+      "A clothing image categorisation pipeline that reduces manual tagging work and tests how better data isolation can make product discovery more accessible.",
     tags: ["Python", "K-Means++", "Computer Vision"],
     image: "/images/Clasificator_heat.png",
-    repoUrl: "https://example.com/image-categorization",
     builtWith: ["Python", "KNN", "K-Means++", "Fashion-MNIST", "ROI isolation"],
   },
   {
@@ -74,7 +73,7 @@ export const portfolioProjects: Project[] = [
     title: "Spinortechnologies",
     type: "project",
     description:
-      "An independent quant research group I founded to read academic papers and publish strategy design in the open.",
+      "An independent quant research group I founded to make quantitative research easier to inspect, learn from, and build on through open strategy design.",
     tags: ["Quant Research", "Community", "Open Research"],
     image: "/images/spinor-tecnologies.png",
     repoUrl: "https://spinortechnologies.com",

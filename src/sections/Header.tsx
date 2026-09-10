@@ -9,15 +9,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const NAV_ITEMS = [
-  { hash: "#about", key: "header.about" },
-  { hash: "#services", key: "header.services" },
-  { hash: "#portfolio", key: "header.portfolio" },
-  { hash: "#stack", key: "header.stack" },
+  { href: "/about", key: "header.about" },
+  { href: "/projects", key: "header.portfolio" },
+  { href: "/writing", key: "header.writing" },
+  { href: "/services/tutoring", key: "header.tutoring" },
 ] as const;
-
-function sectionHref(pathname: string, hash: string) {
-  return pathname === "/" ? hash : `/${hash}`;
-}
 
 export const Header = () => {
   const { t } = useLanguage();
@@ -25,7 +21,7 @@ export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
-  const contactHref = sectionHref(pathname, "#contact");
+  const contactHref = pathname === "/" ? "#contact" : "/#contact";
 
   return (
     <header className="sticky top-0 backdrop-blur-sm z-20 bg-white shadow-sm">
@@ -65,7 +61,7 @@ export const Header = () => {
             {NAV_ITEMS.map((item) => (
               <motion.div key={item.key} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Link
-                  href={sectionHref(pathname, item.hash)}
+                  href={item.href}
                   className="text-black/80 hover:text-black font-medium transition-colors"
                 >
                   {t(item.key)}
@@ -127,7 +123,7 @@ export const Header = () => {
                 {NAV_ITEMS.map((item) => (
                   <Link
                     key={item.key}
-                    href={sectionHref(pathname, item.hash)}
+                    href={item.href}
                     onClick={closeMobileMenu}
                     className="py-3 px-4 text-black/80 hover:text-black font-medium rounded-lg hover:bg-gray-100"
                   >

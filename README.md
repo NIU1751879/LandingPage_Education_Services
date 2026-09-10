@@ -1,29 +1,29 @@
-# SaaS Landing Page
+# Jan Gómez Escobar — Personal Site
 
-Welcome to the Stunning SaaS Landing Page project! This project is built with React, Next.js, TailwindCSS, and Framer Motion. It aims to provide a visually appealing and highly performant landing page for SaaS products.
+Personal website for Jan Gómez Escobar, built with Next.js, React, Tailwind CSS, and Framer Motion. The site combines software, education, quantitative research, and tutoring content.
 
 ## Table of Contents
 
-- [Demo](#demo)
+- [Live site](#live-site)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Preview](#preview)
 
-## Demo
-Check out the live demo of the project [here](https://saas-landing-nextjs.vercel.app/).
+## Live site
+Visit the live site at [jangomezetutor.es](https://jangomezetutor.es/).
 
 ## Features
 - Responsive design
 - Smooth animations with Framer Motion
 - Modern UI with TailwindCSS
-- Server-side rendering with Next.js
+- Server-rendered pages and API routes with Next.js
 - Easy to customize
 
 ## Technologies Used
 - **React**: A JavaScript library for building user interfaces
-- **Next.js**: A React framework with server-side rendering capabilities
+- **Next.js**: A React framework with server-rendered pages and API routes
 - **TailwindCSS**: A utility-first CSS framework for rapid UI development
 - **Framer Motion**: A library for creating animations in React
 
@@ -31,8 +31,8 @@ Check out the live demo of the project [here](https://saas-landing-nextjs.vercel
 To get started with this project, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/harshxraj/saas-landing-nextjs.git
-cd saas-landing-nextjs
+git clone <repository-url>
+cd saas-landing-clases
 npm install
 ```
 
@@ -45,7 +45,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see the project.
 
-## Preview
-![image](https://github.com/user-attachments/assets/85e0357d-65a3-45a5-94fb-ead789a718e2)
+## Content
 
+Structured portfolio content lives in `src/data/portfolio.ts`, while service definitions live in `src/data/services.ts`. Localized copy is maintained in `src/i18n/`.
 

@@ -13,7 +13,7 @@ type CallToActionProps = {
 };
 
 export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -24,19 +24,26 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
   const isSimple = variant === "simple";
 
   const [formData, setFormData] = useState({
-    nombre: "",
+    name: "",
     email: "",
-    telefono: "",
+    interest: variant === "simple" ? "general" : "clase_gratuita",
     horario: "",
     slotIso: "" as string,
-    mensaje: "",
+    message: "",
+    hp_website: "",
+    newsletter_opt_in: false,
   });
 
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    const value = e.target instanceof HTMLInputElement && e.target.type === "checkbox"
+      ? e.target.checked
+      : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
+  };
 
   const isSlotDateInRange = (slotIso: string): boolean => {
     try {
@@ -73,26 +80,17 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
       const emailRes = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          isSimple
-            ? {
-                nombre: formData.nombre,
-                email: formData.email,
-                tipoContacto: "general",
-                mensaje: formData.mensaje,
-                locale: language,
-              }
-            : {
-                nombre: formData.nombre,
-                email: formData.email,
-                telefono: formData.telefono,
-                tipoContacto: "clase_gratuita",
-                horario: formData.horario,
-                slotIso: formData.slotIso || undefined,
-                mensaje: `Reserva de clase gratuita - Horario: ${formData.horario}`,
-                locale: language,
-              }
-        ),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: isSimple
+            ? formData.message
+            : `Reserva de clase gratuita - Horario: ${formData.horario}`,
+          interest: formData.interest,
+          referrer: typeof document !== "undefined" ? document.referrer || null : null,
+          newsletter_opt_in: formData.newsletter_opt_in,
+          hp_website: formData.hp_website,
+        }),
       });
 
       if (!emailRes.ok) {
@@ -110,12 +108,14 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
         text: isSimple ? t("callToAction.simple.mensajeEnviado") : t("callToAction.mensajeEnviado"),
       });
       setFormData({
-        nombre: "",
+        name: "",
         email: "",
-        telefono: "",
+        interest: isSimple ? "general" : "clase_gratuita",
         horario: "",
         slotIso: "",
-        mensaje: "",
+        message: "",
+        hp_website: "",
+        newsletter_opt_in: false,
       });
     } catch (error) {
       setMessage({ type: "error", text: t("callToAction.errorRed") });
@@ -234,8 +234,8 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
               <motion.input
                 whileFocus={{ scale: 1.02 }}
                 type="text"
-                name="nombre"
-                value={formData.nombre}
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 required
                 className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -257,38 +257,63 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
             </div>
           </div>
 
-          {isSimple ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="interest">
+                Interest
+              </label>
+              <select
+                id="interest"
+                name="interest"
+                value={formData.interest}
+                onChange={handleChange}
+                className="w-full border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+              >
+                <option value="general">General inquiry</option>
+                <option value="clase_gratuita">Free class</option>
+                <option value="tutoring">Tutoring</option>
+                <option value="web_development">Web development</option>
+              </select>
+            </div>
+            <label className="flex items-center gap-3 mt-7 text-gray-700">
+              <input
+                type="checkbox"
+                name="newsletter_opt_in"
+                checked={formData.newsletter_opt_in}
+                onChange={handleChange}
+                className="h-4 w-4"
+              />
+              <span>Subscribe me to the newsletter</span>
+            </label>
+          </div>
+
+          {isSimple && (
             <div className="mb-6">
               <label className="block text-gray-700 font-semibold mb-2">
                 {t("callToAction.simple.mensaje")}
               </label>
               <motion.textarea
                 whileFocus={{ scale: 1.01 }}
-                name="mensaje"
-                value={formData.mensaje}
+                name="message"
+                value={formData.message}
                 onChange={handleChange}
                 required
                 rows={5}
                 className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-y"
               />
             </div>
-          ) : (
-            <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2">
-                {t("callToAction.telefono")}
-              </label>
-              <motion.input
-                whileFocus={{ scale: 1.02 }}
-                type="tel"
-                name="telefono"
-                value={formData.telefono}
-                onChange={handleChange}
-                required
-                placeholder={t("callToAction.telefonoPlaceholder")}
-                className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-              />
-            </div>
           )}
+
+          <input
+            type="text"
+            name="hp_website"
+            value={formData.hp_website}
+            onChange={handleChange}
+            style={{ display: "none" }}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
 
           <div className="flex justify-center">
             <motion.button
