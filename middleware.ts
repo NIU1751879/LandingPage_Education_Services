@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import Statsig from "statsig-node";
+import type { InitializationDetails } from "statsig-node";
 
 // Tutoring landing experiment (`sydney_landing_validation`).
 // Applies only to `/services/tutoring` — the site root `/` is never rewritten.
@@ -44,7 +45,7 @@ const isStaticAssetRequest = (pathname: string) => {
   return false;
 };
 
-let initPromise: Promise<void> | null = null;
+let initPromise: Promise<InitializationDetails> | null = null;
 
 async function ensureStatsigInitialized(timeoutMs: number): Promise<boolean> {
   const secret = process.env.STATSIG_SERVER_SECRET;
