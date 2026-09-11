@@ -18,7 +18,7 @@ export default function Home() {
       <Portfolio limit={3} />
       <WritingPreview />
       <TechStack />
-      <CallToAction variant="simple" />
+      <CallToAction />
       <Footer />
     </div>
   );

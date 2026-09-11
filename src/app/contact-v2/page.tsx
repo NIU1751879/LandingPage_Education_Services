@@ -123,7 +123,7 @@ export default function ContactV2Page() {
       <Services />
       <Portfolio />
       <TechStack />
-      <CallToAction variant="simple" />
+      <CallToAction />
       <Footer />
     </div>
   );

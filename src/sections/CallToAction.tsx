@@ -5,14 +5,8 @@ import springImage from "@/assets/spring.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ClassCalendar } from "@/components/ClassCalendar";
-import { MapPin, ShoppingBag, Clock } from "lucide-react";
 
-type CallToActionProps = {
-  variant?: "booking" | "simple";
-};
-
-export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
+export const CallToAction = () => {
   const { t } = useLanguage();
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -21,14 +15,12 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
   });
 
   const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
-  const isSimple = variant === "simple";
+  const isSimple = true;
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    interest: variant === "simple" ? "general" : "clase_gratuita",
-    horario: "",
-    slotIso: "" as string,
+    interest: "general",
     message: "",
     hp_website: "",
     newsletter_opt_in: false,
@@ -45,36 +37,9 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
     setFormData({ ...formData, [e.target.name]: value });
   };
 
-  const isSlotDateInRange = (slotIso: string): boolean => {
-    try {
-      const slotDate = new Date(slotIso);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate() + 1);
-      const maxDate = new Date(today);
-      maxDate.setDate(today.getDate() + 14);
-      const d = new Date(slotDate.getFullYear(), slotDate.getMonth(), slotDate.getDate());
-      return d >= tomorrow && d <= maxDate;
-    } catch {
-      return false;
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
-
-    if (!isSimple) {
-      if (!formData.horario) {
-        setMessage({ type: "error", text: t("cta.errors.select_slot") });
-        return;
-      }
-      if (formData.slotIso && !isSlotDateInRange(formData.slotIso)) {
-        setMessage({ type: "error", text: t("cta.errors.invalid_date") });
-        return;
-      }
-    }
 
     try {
       const emailRes = await fetch("/api/contact", {
@@ -83,9 +48,7 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          message: isSimple
-            ? formData.message
-            : `Reserva de clase gratuita - Horario: ${formData.horario}`,
+          message: formData.message,
           interest: formData.interest,
           referrer: typeof document !== "undefined" ? document.referrer || null : null,
           newsletter_opt_in: formData.newsletter_opt_in,
@@ -110,9 +73,7 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
       setFormData({
         name: "",
         email: "",
-        interest: isSimple ? "general" : "clase_gratuita",
-        horario: "",
-        slotIso: "",
+        interest: "general",
         message: "",
         hp_website: "",
         newsletter_opt_in: false,
@@ -161,11 +122,11 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
               >
                 {message.text}
               </motion.div>
-              {!isSimple && message.type === "success" && (
+              {message.type === "success" && (
                 <div className="flex flex-col items-center gap-3 mb-4">
                   <p className="text-center text-sm text-gray-600">{t("cta.whatsapp_note")}</p>
                   <motion.a
-                    href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "34600000000"}`}
+                    href="https://wa.me/61416191284"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.05 }}
@@ -179,50 +140,6 @@ export const CallToAction = ({ variant = "booking" }: CallToActionProps) => {
                   </motion.a>
                 </div>
               )}
-            </>
-          )}
-
-          {!isSimple && (
-            <>
-              <div className="mb-8">
-                <ClassCalendar
-                  onSlotSelect={(slot, slotIso) => {
-                    setFormData((prev) => ({ ...prev, horario: slot, slotIso: slotIso ?? "" }));
-                  }}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="flex flex-col gap-2 p-4 rounded-lg bg-gray-50 border border-gray-200">
-                  <div className="flex items-center gap-2 text-gray-800 font-semibold">
-                    <MapPin className="h-5 w-5 shrink-0 text-[#001738]" aria-hidden />
-                    <span>{t("cta.location_title")}</span>
-                  </div>
-                  <a
-                    href="https://www.google.com/maps/search/Biblioteca+Jaume+Fuster+Lesseps"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-blue-600 hover:underline"
-                  >
-                    {t("cta.location_val")}
-                  </a>
-                  <span className="text-sm text-gray-600"> {t("cta.location_negotiable")}</span>
-                </div>
-                <div className="flex flex-col gap-2 p-4 rounded-lg bg-gray-50 border border-gray-200">
-                  <div className="flex items-center gap-2 text-gray-800 font-semibold">
-                    <ShoppingBag className="h-5 w-5 shrink-0 text-[#001738]" aria-hidden />
-                    <span>{t("cta.bring_title")}</span>
-                  </div>
-                  <p className="text-sm text-gray-700">{t("cta.bring_val")}</p>
-                </div>
-                <div className="flex flex-col gap-2 p-4 rounded-lg bg-gray-50 border border-gray-200">
-                  <div className="flex items-center gap-2 text-gray-800 font-semibold">
-                    <Clock className="h-5 w-5 shrink-0 text-[#001738]" aria-hidden />
-                    <span>{t("cta.policy_title")}</span>
-                  </div>
-                  <p className="text-sm text-gray-700">{t("cta.policy_val")}</p>
-                </div>
-              </div>
             </>
           )}
 

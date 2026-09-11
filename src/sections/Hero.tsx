@@ -101,6 +101,16 @@ export const Hero = ({ variant = "tutoring" }: HeroProps) => {
                   >
                     <span>{t("hero.learnMore")}</span>
                   </motion.a>
+                  <motion.a
+                    href="https://wa.me/61416191284?text=Hi%20Jan!%20I%27m%20interested%20in%20your%20classes."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="btn btn-text flex gap-1 transition-all duration-300"
+                  >
+                    WhatsApp: +61 416 191 284
+                  </motion.a>
                 </div>
               </>
             )}
