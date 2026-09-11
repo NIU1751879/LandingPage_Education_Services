@@ -78,7 +78,7 @@ export const Pricing = () => {
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: "top" as const },
       title: { display: true, text: t("pricing.proyeccionNota") },
     },
     scales: { y: { beginAtZero: true, max: 10 } },
@@ -171,9 +171,9 @@ export const Pricing = () => {
                     <RoadmapIcon />
                   ) : imageSrc ? (
                     <Image src={imageSrc} alt={imgAlt} fill className="object-contain rounded-xl" />
-                  ) : (
+                  ) : image ? (
                     <Image src={image} alt={title} className="w-full h-full object-contain rounded-xl" />
-                  )}
+                  ) : null}
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
@@ -182,7 +182,7 @@ export const Pricing = () => {
                     <>
                       <p
                         className="text-gray-700 text-base md:text-lg leading-relaxed mb-6"
-                        dangerouslySetInnerHTML={{ __html: description }}
+                        dangerouslySetInnerHTML={{ __html: description ?? "" }}
                       />
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-left">
                         {roadmapItems?.map((item, itemIndex) => (
@@ -205,7 +205,7 @@ export const Pricing = () => {
                   ) : (
                     <p
                       className="text-gray-700 text-base md:text-lg leading-relaxed mb-6"
-                      dangerouslySetInnerHTML={{ __html: text }}
+                      dangerouslySetInnerHTML={{ __html: text ?? "" }}
                     />
                   )}
 

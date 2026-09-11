@@ -5,16 +5,29 @@ import Link from "next/link";
 import Speechpicture from "@/assets/Speech.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-export default function SobreMi() {
+export default function SobreMi({ compact = false }: { compact?: boolean }) {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="scroll-mt-32 bg-[#e8ebef] py-24 px-6">
+    <section
+      id="about"
+      className={`scroll-mt-32 bg-[#e8ebef] px-6 ${
+        compact ? "py-12" : "py-24"
+      }`}
+    >
       <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-12">
+        <h2
+          className={`text-3xl md:text-4xl font-bold text-black text-center ${
+            compact ? "mb-8" : "mb-12"
+          }`}
+        >
           {t("aboutMe.summary.title")}
         </h2>
-        <div className="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto">
+        <div
+          className={`flex flex-col md:flex-row items-center max-w-5xl mx-auto ${
+            compact ? "gap-8" : "gap-12"
+          }`}
+        >
           <Image
             src={Speechpicture}
             alt={t("aboutMe.summary.title")}

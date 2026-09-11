@@ -12,7 +12,7 @@ function categoryFromSlug(slug: string): WritingCategory | undefined {
 }
 
 export function generateStaticParams() {
-  return [...new Set(writingArticles.map((article) => article.category))].map((category) => ({
+  return Array.from(new Set(writingArticles.map((article) => article.category))).map((category) => ({
     category: category.toLowerCase().replaceAll(" ", "-"),
   }));
 }

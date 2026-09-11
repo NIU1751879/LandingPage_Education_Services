@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useCallback } from "react";
 import { motion } from "framer-motion";
 import { StatsigClient } from "@statsig/js-client";
+import type { StatsigUpdateDetails } from "@statsig/js-client";
 
 // Client-side CTA tracker for the `sydney_landing_validation` experiment.
 //
@@ -24,7 +25,7 @@ const EVENT_NAME = "lead_form_click";
 const DEFAULT_VARIANT: "landing_a" | "landing_b" = "landing_a";
 
 let statsigClient: StatsigClient | null = null;
-let initPromise: Promise<void> | null = null;
+let initPromise: Promise<StatsigUpdateDetails | undefined> | null = null;
 
 function getCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
@@ -70,6 +71,7 @@ async function ensureClientInitialized(timeoutMs: number): Promise<void> {
     initPromise = withTimeout(statsigClient.initializeAsync(), timeoutMs).catch(
       () => {
         // Swallow: we will still redirect.
+        return undefined;
       },
     );
   }
@@ -100,7 +102,7 @@ export default function TrackedCTAButton({
         await ensureClientInitialized(1500);
 
         // Best-effort: if initialization timed out, `logEvent` might throw; catch it.
-        statsigClient?.logEvent(EVENT_NAME, null, {
+        statsigClient?.logEvent(EVENT_NAME, undefined, {
           experiment: EXPERIMENT,
           variant,
         });
@@ -131,4 +133,3 @@ export default function TrackedCTAButton({
     </motion.a>
   );
 }
-
