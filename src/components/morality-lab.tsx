@@ -296,7 +296,6 @@ const resultKeys = [
   "history",
   "mean_field_trajectory",
   "mean_field_phase_field",
-  "job_id",
   "time",
   "final",
   "equilibrium",
@@ -310,6 +309,7 @@ const resultKeys = [
   "matrices",
   "median_selection_gradient",
   "median_opportunism_gap",
+  "exp",
 ];
 
 function isResultPayload(value: unknown): value is JsonObject {
