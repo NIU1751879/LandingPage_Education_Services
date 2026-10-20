@@ -39,18 +39,18 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const translations = require("@/i18n/translations").translations;
 
   const t = (key: string): string => {
-    const keys = key.split(".");
-    let value: any = translations[language];
-    
-    for (const k of keys) {
-      value = value?.[k];
-      if (value === undefined) {
-        console.warn(`Translation key "${key}" not found for language "${language}"`);
-        return key;
-      }
-    }
-    
-    return typeof value === "string" ? value : key;
+    const lookup = (locale: Language): unknown =>
+      key.split(".").reduce<unknown>((value, part) => {
+        if (!value || typeof value !== "object") return undefined;
+        return (value as Record<string, unknown>)[part];
+      }, translations[locale]);
+
+    const translated = lookup(language);
+    if (typeof translated === "string") return translated;
+    const fallback = lookup("en");
+    if (typeof fallback === "string") return fallback;
+    console.warn(`Translation key "${key}" not found for language "${language}" or "en"`);
+    return key;
   };
 
   return (
@@ -59,5 +59,4 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </LanguageContext.Provider>
   );
 };
-
 

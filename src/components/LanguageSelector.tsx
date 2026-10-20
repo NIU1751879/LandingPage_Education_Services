@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 
 const languages: { code: Language; name: string; flag: string }[] = [
-  { code: "es", name: "Español", flag: "🇪🇸" },
+  { code: "es", name: "Español (Castellano)", flag: "🇪🇸" },
   { code: "ca", name: "Català", flag: "ca" },
   { code: "en", name: "English", flag: "🇬🇧" },
 ];
@@ -80,4 +80,3 @@ export const LanguageSelector = () => {
     </div>
   );
 };
-

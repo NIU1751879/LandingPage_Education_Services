@@ -53,6 +53,18 @@ const timeline = [
       "I used bootstrap methods for VaR research because risk estimates should show their uncertainty and support better decisions, not just one impressive number.",
   },
   {
+    label: "Research & Engineering",
+    title: "Developed the ABM Situational Morality model",
+    description:
+      "I built an agent-based model of situational morality on evolving social networks, alongside a mean-field analysis using four-dimensional ODE dynamics and phase-field tools to explore cooperation, reputation, gossip, and institutional deterrence.",
+  },
+  {
+    label: "Quantitative Engineering",
+    title: "Created the Geo Risk Tool",
+    description:
+      "I developed a geospatial and geopolitical risk analysis tool that simulates portfolio P&L, estimates VaR and Expected Shortfall, and explores stress scenarios under geopolitical shocks.",
+  },
+  {
     label: "Education",
     title: "Exchanged to Macquarie University in Sydney",
     description:
@@ -210,6 +222,84 @@ export default function AboutPage() {
               </motion.article>
             </motion.div>
           </div>
+        </section>
+
+        <section
+          aria-labelledby="models-title"
+          className="bg-[#f7f8fa] px-6 py-20 md:py-28"
+        >
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={stagger}
+            className="container mx-auto max-w-5xl"
+          >
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+              className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-blue-600"
+            >
+              Research to working models
+            </motion.p>
+            <motion.h2
+              id="models-title"
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+              className="max-w-3xl text-3xl font-extrabold tracking-tight text-[#001738] md:text-5xl"
+            >
+              Turning research questions into simulations people can explore.
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              transition={{ duration: 0.5 }}
+              className="mt-6 max-w-3xl text-lg leading-relaxed text-gray-600"
+            >
+              I created the Situational Morality and Geo-Risk models to make
+              abstract mechanisms and financial uncertainty more concrete. I
+              began with the research questions, academic methods, and reference
+              implementations, then translated them into reproducible
+              simulations, documented the assumptions, and built interfaces
+              that let people vary inputs and inspect the results.
+            </motion.p>
+            <motion.div
+              variants={stagger}
+              className="mt-10 grid gap-5 md:grid-cols-2"
+            >
+              <motion.article
+                variants={fadeUp}
+                transition={{ duration: 0.5 }}
+                className="rounded-3xl bg-white p-7 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-[#001738]">
+                  Situational Morality
+                </h3>
+                <p className="mt-3 leading-relaxed text-gray-600">
+                  I implemented both a stochastic agent-based network model and
+                  a four-dimensional mean-field model. The ABM explores
+                  reputation, gossip, audits, and changing social ties; the
+                  mean-field tools integrate the coupled equations and map
+                  phase-space vector fields and nullclines. Numerical checks
+                  and explicit response schemas help make each result
+                  inspectable rather than a black box.
+                </p>
+              </motion.article>
+              <motion.article
+                variants={fadeUp}
+                transition={{ duration: 0.5 }}
+                className="rounded-3xl bg-white p-7 shadow-sm"
+              >
+                <h3 className="text-xl font-bold text-[#001738]">Geo-Risk / Geo-Alpha</h3>
+                <p className="mt-3 leading-relaxed text-gray-600">
+                  I built a portfolio-risk simulator around geopolitical-risk
+                  scenarios and stochastic return paths. It presents simulated
+                  P&amp;L, VaR, and Expected Shortfall as scenario comparisons,
+                  making the assumptions and tail-risk trade-offs easier to
+                  explore.
+                </p>
+              </motion.article>
+            </motion.div>
+          </motion.div>
         </section>
 
         <section

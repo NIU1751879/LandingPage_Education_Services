@@ -15,6 +15,28 @@ export interface Project {
 
 export const portfolioProjects: Project[] = [
   {
+    id: "abm-situational-morality",
+    title: "ABM Situational Morality",
+    type: "project",
+    description:
+      "An agent-based model exploring how situational incentives and social interactions shape moral behaviour over time.",
+    tags: ["Agent-based modelling", "Situational morality", "Social interactions", "Evolutionary dynamics"],
+    image: "/images/visual-modelado.png",
+    repoUrl: "https://github.com/NIU1751879/ABM_situational_morality",
+    builtWith: ["Agent-based simulation", "Behavioural modelling", "Computational research"],
+  },
+  {
+    id: "geo-risk-tool",
+    title: "Geo Risk Tool",
+    type: "app",
+    description:
+      "A financial risk simulator for exploring how geopolitical risk shocks can affect portfolio performance across investment horizons.",
+    tags: ["Geopolitical risk", "Portfolio simulation", "Value at Risk", "Expected Shortfall"],
+    image: "/images/Bootstrap.png",
+    repoUrl: "https://github.com/NIU1751879/GEO_RISK_TOOL",
+    builtWith: ["Scenario analysis", "Monte Carlo simulation", "Tail-risk metrics"],
+  },
+  {
     id: "real-auto-solution",
     title: "RealAutoSolution",
     type: "app",

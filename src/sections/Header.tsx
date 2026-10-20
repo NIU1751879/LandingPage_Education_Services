@@ -7,6 +7,7 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/about", key: "header.about" },
@@ -68,6 +69,26 @@ export const Header = () => {
                 </Link>
               </motion.div>
             ))}
+            <details className="group relative">
+              <summary className="flex cursor-pointer list-none items-center gap-1 text-black/80 font-medium transition-colors hover:text-black [&::-webkit-details-marker]:hidden">
+                {t("header.products")}
+                <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <div className="absolute right-0 top-full z-30 mt-3 w-64 rounded-xl border border-slate-200 bg-white p-2 shadow-xl">
+                <Link
+                  href="/labs?model=morality"
+                  className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#001738]"
+                >
+                  ABM Situational Morality
+                </Link>
+                <Link
+                  href="/labs?model=geoalpha"
+                  className="block rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#001738]"
+                >
+                  Geo Risk Tool
+                </Link>
+              </div>
+            </details>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href={contactHref}
@@ -130,6 +151,28 @@ export const Header = () => {
                     {t(item.key)}
                   </Link>
                 ))}
+                <details className="group rounded-lg">
+                  <summary className="flex cursor-pointer list-none items-center justify-between rounded-lg px-4 py-3 font-medium text-black/80 hover:bg-gray-100 [&::-webkit-details-marker]:hidden">
+                    {t("header.products")}
+                    <ChevronDown size={16} className="transition-transform group-open:rotate-180" aria-hidden="true" />
+                  </summary>
+                  <div className="ml-3 flex flex-col border-l border-gray-200 pl-3">
+                    <Link
+                      href="/labs?model=morality"
+                      onClick={closeMobileMenu}
+                      className="rounded-lg px-3 py-2.5 text-sm text-black/70 hover:bg-gray-100"
+                    >
+                      ABM Situational Morality
+                    </Link>
+                    <Link
+                      href="/labs?model=geoalpha"
+                      onClick={closeMobileMenu}
+                      className="rounded-lg px-3 py-2.5 text-sm text-black/70 hover:bg-gray-100"
+                    >
+                      Geo Risk Tool
+                    </Link>
+                  </div>
+                </details>
                 <Link
                   href={contactHref}
                   onClick={closeMobileMenu}
