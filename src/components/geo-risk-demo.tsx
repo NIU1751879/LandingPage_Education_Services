@@ -69,10 +69,10 @@ export function GeoRiskDemo() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          portfolio_value: Number(portfolioValue),
+          value: Number(portfolioValue),
           horizons,
-          gpr_shock_multiplier: Number(gprShock),
-          n_simulations: Number(simulations),
+          gpr_shock: Number(gprShock),
+          n_sim: Number(simulations),
           seed: Number(seed),
         }),
       });
