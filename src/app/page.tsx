@@ -7,6 +7,7 @@ import { Services } from "@/sections/Services";
 import { Portfolio } from "@/sections/Portfolio";
 import { TechStack } from "@/sections/TechStack";
 import { WritingPreview } from "@/sections/WritingPreview";
+import { GeoRiskDemo } from "@/components/geo-risk-demo";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <SobreMi compact />
       <Services />
       <Portfolio limit={3} />
+      <GeoRiskDemo />
       <WritingPreview />
       <TechStack />
       <CallToAction />
